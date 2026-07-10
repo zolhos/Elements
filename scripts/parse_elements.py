@@ -38,27 +38,46 @@ def extract_dependencies(english_text):
     # Find all references inside brackets [...]
     matches = re.findall(r'\[([^\]]+)\]', english_text)
     for match in matches:
-        # Propositions (Prop. X.Y or Props. X.Y and Z.W)
-        if 'Prop' in match or 'prop' in match:
-            nums = re.findall(r'([0-9]+)\.([0-9]+)', match)
-            for b, p in nums:
-                deps.append(f'Prop.{b}.{p}')
-        # Definitions (Def. X.Y)
-        elif 'Def' in match or 'def' in match:
-            nums = re.findall(r'([0-9]+)\.([0-9]+)', match)
-            for b, d in nums:
-                deps.append(f'Def.{b}.{d}')
-        # Postulates (Post. X)
-        elif 'Post' in match or 'post' in match:
-            nums = re.findall(r'([0-9]+)', match)
-            for p in nums:
-                deps.append(f'Post.1.{p}') # Postulates are only defined in Book 1
-        # Common Notions (C.N. X)
-        elif 'C.N.' in match or 'c.n.' in match or 'Common Notion' in match:
-            nums = re.findall(r'([0-9]+)', match)
-            for cn in nums:
-                deps.append(f'CN.1.{cn}') # Common Notions are only defined in Book 1
-
+        # Split by comma, semicolon, or "and"
+        parts = re.split(r'[,;]|\band\b', match)
+        current_type = None
+        current_book = None
+        
+        for part in parts:
+            part = part.strip()
+            if not part:
+                continue
+                
+            if 'Prop' in part or 'prop' in part:
+                current_type = 'Prop'
+            elif 'Def' in part or 'def' in part:
+                current_type = 'Def'
+            elif 'Post' in part or 'post' in part:
+                current_type = 'Post'
+            elif 'C.N.' in part or 'c.n.' in part or 'Common Notion' in part:
+                current_type = 'CN'
+                
+            nums_with_book = re.findall(r'([0-9]+)\.([0-9]+)', part)
+            nums_single = re.findall(r'(?<!\.)\b([0-9]+)\b(?!\.)', part)
+            
+            if nums_with_book:
+                for b, n in nums_with_book:
+                    current_book = b
+                    if current_type == 'Prop':
+                        deps.append(f'Prop.{b}.{n}')
+                    elif current_type == 'Def':
+                        deps.append(f'Def.{b}.{n}')
+            elif nums_single and current_type:
+                for n in nums_single:
+                    if current_type == 'Post':
+                        deps.append(f'Post.1.{n}')
+                    elif current_type == 'CN':
+                        deps.append(f'CN.1.{n}')
+                    elif current_type == 'Prop' and current_book:
+                        deps.append(f'Prop.{current_book}.{n}')
+                    elif current_type == 'Def' and current_book:
+                        deps.append(f'Def.{current_book}.{n}')
+                        
     # Remove duplicates while preserving order
     seen = set()
     return [x for x in deps if not (x in seen or seen.add(x))]

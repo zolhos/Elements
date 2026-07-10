@@ -2594,9 +2594,9 @@
           "Def.6.1",
           "Prop.6.6",
           "Prop.6.4",
-          "Prop.6.1",
           "Prop.5.22",
           "Prop.1.32",
+          "Prop.6.1",
           "Prop.5.12",
           "Prop.5.16",
           "Prop.6.14"
@@ -3167,7 +3167,7 @@
         "title": "Proposition 20",
         "english_statement": "The least numbers of those (numbers) having the\nsame ratio measure those (numbers) having the same ratio as them an equal\nnumber of times, the greater (measuring) the greater, and the lesser the lesser.",
         "dependencies": [
-          "Prop.7.20",
+          "Def.7.20",
           "Prop.7.13",
           "Prop.7.12",
           "Prop.7.4"
@@ -3435,10 +3435,10 @@
         "english_statement": "For any multitude whatsoever of given ratios, (expressed) in the least numbers, to find the least numbers continuously proportional \nin these given ratios.",
         "dependencies": [
           "Prop.7.34",
-          "Prop.7.20",
+          "Def.7.20",
           "Prop.7.13",
-          "Prop.7.35",
-          "Def.7.20"
+          "Prop.7.20",
+          "Prop.7.35"
         ]
       },
       {
@@ -4656,7 +4656,7 @@
           "Prop.3.31",
           "Prop.1.47",
           "Prop.10.6",
-          "Prop.10.4"
+          "Def.10.4"
         ]
       },
       {
@@ -6010,7 +6010,7 @@
           "Def.5.9",
           "Prop.10.15",
           "Prop.10.12",
-          "Prop.10.3",
+          "Def.10.3",
           "Prop.10.13",
           "Prop.10.36",
           "Prop.10.14",
@@ -7075,7 +7075,7 @@
         "title": "Proposition 1",
         "english_statement": "If a straight-line is cut in extreme and mean ratio then the square on the\ngreater piece, added to half of the whole, is five times the square\non the half.",
         "dependencies": [
-          "Prop.6.3",
+          "Def.6.3",
           "Prop.6.17",
           "Prop.6.1",
           "Prop.1.43"
@@ -7101,7 +7101,7 @@
         "title": "Proposition 3",
         "english_statement": "If a straight-line is cut in extreme and mean ratio then the square\non the lesser piece added to half of the greater piece is five\ntimes the square on half of the greater piece.\\\\",
         "dependencies": [
-          "Prop.6.3",
+          "Def.6.3",
           "Prop.6.17"
         ]
       },
@@ -7112,7 +7112,7 @@
         "title": "Proposition 4",
         "english_statement": "If a straight-line is cut in extreme and mean ratio then the sum of the\nsquares on the whole and the lesser piece is three times the square on\nthe greater piece.\\\\",
         "dependencies": [
-          "Prop.6.3",
+          "Def.6.3",
           "Prop.6.17",
           "Prop.1.43"
         ]
@@ -7124,7 +7124,7 @@
         "title": "Proposition 5",
         "english_statement": "If a straight-line is cut in extreme and mean ratio, and a\n(straight-line) equal to the greater piece is added to it, then the\nwhole straight-line has been cut in extreme and mean ratio, and\n the original straight-line is the greater piece.",
         "dependencies": [
-          "Prop.6.3",
+          "Def.6.3",
           "Prop.6.17",
           "Prop.1.43",
           "Prop.5.14"
@@ -7142,7 +7142,7 @@
           "Def.10.4",
           "Prop.10.9",
           "Prop.10.73",
-          "Prop.6.3",
+          "Def.6.3",
           "Prop.6.17",
           "Prop.10.97"
         ]
@@ -7284,7 +7284,7 @@
           "Prop.1.4",
           "Prop.3.31",
           "Prop.6.8",
-          "Prop.5.9"
+          "Def.5.9"
         ]
       },
       {
@@ -7298,7 +7298,7 @@
           "Prop.11.4",
           "Prop.1.47",
           "Prop.6.8",
-          "Prop.5.9"
+          "Def.5.9"
         ]
       },
       {
@@ -7314,14 +7314,14 @@
           "Prop.1.33",
           "Prop.13.10",
           "Prop.3.1",
-          "Prop.11.3",
+          "Def.11.3",
           "Prop.1.29",
           "Prop.4.15",
           "Prop.13.9",
           "Prop.6.8",
           "Prop.3.31",
           "Prop.13.3",
-          "Prop.5.9",
+          "Def.5.9",
           "Prop.13.11"
         ]
       },
@@ -7339,7 +7339,7 @@
           "Prop.6.32",
           "Prop.11.1",
           "Prop.13.5",
-          "Prop.11.3",
+          "Def.11.3",
           "Prop.1.8",
           "Prop.13.7",
           "Prop.11.38",
@@ -7358,7 +7358,6 @@
           "Def.5.9",
           "Prop.6.8",
           "Prop.13.13",
-          "Prop.5.9",
           "Prop.13.15",
           "Prop.13.14",
           "Prop.6.4",

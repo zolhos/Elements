@@ -108,6 +108,108 @@
                     <!-- Vis.js canvas renders here -->
                 </div>
                 
+                <!-- Floating Graph Options Panel -->
+                <div class="graph-options-panel" id="graph-options-panel">
+                    <div class="options-header">
+                        <h3><span class="header-icon">⚙️</span> Graph Settings</h3>
+                        <button id="btn-toggle-options" title="Toggle Options Panel">▲</button>
+                    </div>
+                    <div class="options-body" id="options-body">
+                        <!-- Neighbors Highlight Depth -->
+                        <div class="option-group">
+                            <label>Highlight Depth</label>
+                            <div class="segmented-control">
+                                <label class="segment-btn active" data-val="1">
+                                    <input type="radio" name="highlight-depth" value="1" checked> 1st Deg
+                                </label>
+                                <label class="segment-btn" data-val="2">
+                                    <input type="radio" name="highlight-depth" value="2"> 2nd Deg
+                                </label>
+                                <label class="segment-btn" data-val="3">
+                                    <input type="radio" name="highlight-depth" value="3"> 3rd Deg
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Edge directions highlight -->
+                        <div class="option-group">
+                            <label>Edge Directions Color</label>
+                            <div class="segmented-control">
+                                <label class="segment-btn active" data-val="default">
+                                    <input type="radio" name="edge-colors" value="default" checked> Off
+                                </label>
+                                <label class="segment-btn" data-val="directional">
+                                    <input type="radio" name="edge-colors" value="directional"> On
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Book Isolation in graph -->
+                        <div class="option-group">
+                            <label for="graph-filter-book">Highlight Book</label>
+                            <select id="graph-filter-book" class="styled-select">
+                                <option value="none">None (Show All)</option>
+                                <option value="1">Book 1</option>
+                                <option value="2">Book 2</option>
+                                <option value="3">Book 3</option>
+                                <option value="4">Book 4</option>
+                                <option value="5">Book 5</option>
+                                <option value="6">Book 6</option>
+                                <option value="7">Book 7</option>
+                                <option value="8">Book 8</option>
+                                <option value="9">Book 9</option>
+                                <option value="10">Book 10</option>
+                                <option value="11">Book 11</option>
+                                <option value="12">Book 12</option>
+                                <option value="13">Book 13</option>
+                            </select>
+                        </div>
+
+                        <!-- Node Size Control -->
+                        <div class="option-group">
+                            <label for="node-size-slider">Node Size Scale: <span id="node-size-val">1.0x</span></label>
+                            <input type="range" id="node-size-slider" min="0.5" max="3.0" step="0.1" value="1.0" class="styled-slider">
+                        </div>
+
+                        <!-- Local Spreading Control -->
+                        <div class="option-group">
+                            <label>Local Layout Spreading</label>
+                            <div class="checkbox-row">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="chk-auto-spread">
+                                    <span class="checkmark"></span>
+                                    Auto-spread neighbors on select
+                                </label>
+                            </div>
+                            <button id="btn-spread-now" class="secondary-btn" style="margin-top: 4px;">Spread Neighbors Now</button>
+                        </div>
+
+                        <!-- Path Finder -->
+                        <div class="option-group border-top">
+                            <label>Deductive Path Finder</label>
+                            <div class="path-inputs">
+                                <input type="text" id="path-start" placeholder="From (e.g. Def.1.1)" autocomplete="off">
+                                <span class="arrow-between">➜</span>
+                                <input type="text" id="path-end" placeholder="To (e.g. Prop.1.47)" autocomplete="off">
+                            </div>
+                            <div class="button-row">
+                                <button id="btn-find-path" class="secondary-btn">Trace Path</button>
+                                <button id="btn-clear-path" class="text-btn">Clear</button>
+                            </div>
+                            <div id="path-result" class="path-result-info"></div>
+                        </div>
+
+                        <!-- Advanced Analysis -->
+                        <div class="option-group border-top">
+                            <label>Graph Diagnostics</label>
+                            <div class="button-row flex-column">
+                                <button id="btn-detect-cycles" class="action-btn">🔍 Run Cycle Detection</button>
+                                <button id="btn-longest-path" class="action-btn">⛓️ Trace Longest Chain</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="graph-overlay-controls">
                     <button id="btn-zoom-in" title="Zoom In">+</button>
                     <button id="btn-zoom-out" title="Zoom Out">-</button>
