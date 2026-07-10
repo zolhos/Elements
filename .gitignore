@@ -1,0 +1,14 @@
+# Node dependencies
+webpage/node_modules/
+webpage/package-lock.json
+
+# OS files
+.DS_Store
+
+# LaTeX temporary files (if any generated locally)
+*.aux
+*.log
+*.out
+*.dvi
+*.pdf
+*.ps

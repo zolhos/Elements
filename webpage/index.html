@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Euclid's Elements - Dependency Graph</title>
+    <meta name="description" content="Interactive visualization of dependencies and logical relations among definitions, postulates, common notions, and propositions from books 1, 2, and 3 of Euclid's Elements.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" crossorigin="anonymous">
+    
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Vis.js Network CDN -->
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    
+    <!-- KaTeX JS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="app-container">
+        
+        <!-- SIDEBAR - Navigation, Search and Filter -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1>Elements</h1>
+                <div class="subtitle">Euclid's Elements</div>
+            </div>
+            
+            <div class="search-filter-box">
+                <input type="text" id="search-input" placeholder="Search elements (e.g. triangle)..." aria-label="Search">
+                
+                <div class="filter-row">
+                    <select id="filter-book" aria-label="Filter by book">
+                        <option value="all">All Books</option>
+                        <option value="1">Book 1</option>
+                        <option value="2">Book 2</option>
+                        <option value="3">Book 3</option>
+                        <option value="4">Book 4</option>
+                        <option value="5">Book 5</option>
+                        <option value="6">Book 6</option>
+                        <option value="7">Book 7</option>
+                        <option value="8">Book 8</option>
+                        <option value="9">Book 9</option>
+                        <option value="10">Book 10</option>
+                        <option value="11">Book 11</option>
+                        <option value="12">Book 12</option>
+                        <option value="13">Book 13</option>
+                    </select>
+                    
+                    <select id="filter-type" aria-label="Filter by type">
+                        <option value="all">All Types</option>
+                        <option value="definition">Definitions</option>
+                        <option value="postulate">Postulates</option>
+                        <option value="common_notion">Common Notions</option>
+                        <option value="theorem">Theorems</option>
+                        <option value="problem">Problems</option>
+                    </select>
+                </div>
+            </div>
+            
+            <nav class="navigation-tree" id="nav-tree">
+                <!-- Dynamically loaded books and items list -->
+                <div class="loading-placeholder">Loading index...</div>
+            </nav>
+        </aside>
+        
+        <!-- MAIN WORKSPACE - Statistics and Graph -->
+        <main class="main-content">
+            <header class="main-header">
+                <div class="stats-panel" id="stats-panel">
+                    <div class="stat-card">
+                        <span class="stat-value" id="stat-total">-</span>
+                        <span class="stat-label">Total</span>
+                    </div>
+                    <div class="stat-card color-def">
+                        <span class="stat-value" id="stat-def">-</span>
+                        <span class="stat-label">Definitions</span>
+                    </div>
+                    <div class="stat-card color-post">
+                        <span class="stat-value" id="stat-post">-</span>
+                        <span class="stat-label">Postulates</span>
+                    </div>
+                    <div class="stat-card color-cn">
+                        <span class="stat-value" id="stat-cn">-</span>
+                        <span class="stat-label">Common Notions</span>
+                    </div>
+                    <div class="stat-card color-theorem">
+                        <span class="stat-value" id="stat-theorem">-</span>
+                        <span class="stat-label">Theorems</span>
+                    </div>
+                    <div class="stat-card color-problem">
+                        <span class="stat-value" id="stat-problem">-</span>
+                        <span class="stat-label">Problems</span>
+                    </div>
+                </div>
+            </header>
+            
+            <section class="graph-section">
+                <div class="graph-container" id="network-graph">
+                    <!-- Vis.js canvas renders here -->
+                </div>
+                
+                <div class="graph-overlay-controls">
+                    <button id="btn-zoom-in" title="Zoom In">+</button>
+                    <button id="btn-zoom-out" title="Zoom Out">-</button>
+                    <button id="btn-fit" title="Fit Graph">Fit</button>
+                    <button id="btn-physics" title="Toggle Physics" class="active">Physics</button>
+                </div>
+            </section>
+        </main>
+        
+        <!-- DETAIL PANEL - Selected Element Information -->
+        <section class="detail-panel" id="detail-panel">
+            <button class="close-detail-btn" id="close-detail-btn" aria-label="Close details">&times;</button>
+            
+            <div class="detail-placeholder" id="detail-placeholder">
+                <div class="placeholder-icon">📐</div>
+                <h3>Select an Element</h3>
+                <p>Click a node in the graph or an item in the index to view its definitions, statements, and logical relations.</p>
+            </div>
+            
+            <div class="detail-content hidden" id="detail-content">
+                <div class="detail-header">
+                    <div class="element-badge" id="detail-badge">Prop. 1.1</div>
+                    <h2 class="element-title" id="detail-title">To construct an equilateral triangle...</h2>
+                    <div class="element-type" id="detail-type">Problem (Construction)</div>
+                </div>
+                
+                <div class="tabs-container">
+                    <button class="tab-btn active" data-tab="tab-en">English / Translation</button>
+                    <button class="tab-btn" data-tab="tab-gk">Greek / Original</button>
+                </div>
+                
+                <div class="tab-contents">
+                    <!-- English Translation ( Fitzpatrick ) -->
+                    <div class="tab-pane active" id="tab-en">
+                        <div class="content-section">
+                            <h4>Statement</h4>
+                            <div class="text-body statement-text" id="detail-en-statement">...</div>
+                        </div>
+                        <div class="content-section" id="section-en-proof">
+                            <h4>Proof / Construction</h4>
+                            <div class="text-body proof-text" id="detail-en-proof">...</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Polytonic Greek Code -->
+                    <div class="tab-pane" id="tab-gk">
+                        <div class="content-section">
+                            <h4>Statement (Original Greek)</h4>
+                            <div class="text-body statement-text greek-font" id="detail-gk-statement">...</div>
+                        </div>
+                        <div class="content-section" id="section-gk-proof">
+                            <h4>Proof / Construction</h4>
+                            <div class="text-body proof-text greek-font" id="detail-gk-proof">...</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Relations: Dependencies and Dependents -->
+                <div class="relations-section">
+                    <div class="relation-block">
+                        <h4>Based on (Dependencies):</h4>
+                        <div class="badge-list" id="detail-dependencies">
+                            <!-- Clickable element badges -->
+                            <span class="no-items">No direct dependencies</span>
+                        </div>
+                    </div>
+                    
+                    <div class="relation-block">
+                        <h4>Used in (Dependents):</h4>
+                        <div class="badge-list" id="detail-dependents">
+                            <!-- Clickable element badges -->
+                            <span class="no-items">Not used directly in any proposition</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+    </div>
+
+    <!-- Script Application -->
+    <script src="app.js" type="module"></script>
+</body>
+</html>
